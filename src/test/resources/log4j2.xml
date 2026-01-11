@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Properties>
+        <Property name="basePath">
+            ./logs
+        </Property>
+        <Property name="LOG_FILE">logs/application.log</Property>
+    </Properties>
+
+    <Appenders>
+
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+
+        <!-- File Appender -->
+        <File name="FileLogger" fileName="${LOG_FILE}">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+
+        <!-- Root Logger -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="FileLogger" />
+        </Root>
+
+        <!-- Reduce RestAssured internal noise -->
+        <Logger name="io.restassured" level="warn" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="FileLogger" />
+        </Logger>
+
+        <!-- Reduce Apache HTTP client noise -->
+        <Logger name="org.apache.http" level="warn" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="FileLogger" />
+        </Logger>
+
+    </Loggers>
+
+</Configuration>
